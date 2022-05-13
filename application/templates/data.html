@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style1.css')}}"
+    type="text/css">
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <title>weatherAUS</title>
+    
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Weather Prediction</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="/home">Home</a>
+              <a class="nav-link active" aria-current="page" href="/data">Data</a>
+              <a class="nav-link" href="/model">Model</a>
+              <a class="nav-link" href="/predict">Predict</a>
+            </div>
+          </div>
+        </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xm-12">
+            <div class="ml-auto mr-auto">
+              {% block content %}
+              <div class="site-header-logo">
+                <h2 style="margin-top:16px; margin-bottom:16px;">
+                  Data Distribution
+                </h2>
+              </div>
+              <div class="col-xs-3">
+                <select class="form-select" id="variabel" aria-label="Default select example">
+                  <option value="RainToday">RainToday</option>
+                  <option value="RainTomorrow">RainTomorrow</option>
+                  <option value="Date">Date</option>
+                  <option value="Location">Location</option>
+                  <option value="MinTemp">MinTemp</option>
+                  <option value="MaxTemp">MaxTemp</option>
+                  <option value="Rainfall">Rainfall</option>
+                  <option value="Evaporation">Evaporation</option>
+                  <option value="Sunshine">Sunshine</option>
+                  <option value="WindGustDir">WindGustDir</option>
+                  <option value="WindGustSpeed">WindGustSpeed</option>
+                  <option value="WindDir9am">WindDir9am</option>
+                  <option value="WindDir3pm">WindDir3pm</option>
+                  <option value="WindSpeed9am">WindSpeed9am</option>
+                  <option value="WindSpeed3pm">WindSpeed3pm</option>
+                  <option value="Humidity9am">Humidity9am</option>
+                  <option value="Humidity3pm">Humidity3pm</option>
+                  <option value="Pressure9am">Pressure9am</option>
+                  <option value="Pressure3pm">Pressure3pm</option>
+                  <option value="Cloud9am">Cloud9am</option>
+                  <option value="Cloud3pm">Cloud3pm</option>
+                  <option value="Temp9am">Temp9am</option>
+                  <option value="Temp3pm">Temp3pm</option>
+                </select>
+              </div>
+              <div id="chart1" class="chart1"></div>
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plots.js') }}"></script>
+
+</body>
+<script>
+  a = {{ plot | safe}};
+  Plotly.newPlot('chart1', a, {});
+</script>
+</html>
